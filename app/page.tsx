@@ -1,9 +1,20 @@
 "use client";
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Globe, Terminal, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LandingPage() {
+  const [activeDashboardPoint, setActiveDashboardPoint] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveDashboardPoint((prev) => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   const handlePricingClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const lenis = (window as any).lenis;
@@ -230,18 +241,36 @@ export default function LandingPage() {
           <div className="col-span-12 lg:col-span-5 py-12">
             <h2 className="font-serif text-5xl font-bold tracking-tight italic leading-tight mb-8">The <br />Dashboard.</h2>
             <div className="space-y-8">
-              <div className="border-l-2 border-black pl-6">
-                <p className="font-mono text-[11px] text-black mb-2 uppercase">Verification Protocol</p>
-                <p className="text-sm text-gray-600">Every email is verified through a 3-step handshake protocol before dispatch.</p>
-              </div>
-              <div className="border-l-2 border-gray-200 pl-6">
-                <p className="font-mono text-[11px] text-gray-400 mb-2 uppercase">Dynamic Warming</p>
-                <p className="text-sm text-gray-600">Automated domain warming that scales naturally with your campaign volume.</p>
-              </div>
-              <div className="border-l-2 border-gray-200 pl-6">
-                <p className="font-mono text-[11px] text-gray-400 mb-2 uppercase">CRM Bi-Sync</p>
-                <p className="text-sm text-gray-600">Instant synchronization with Salesforce, HubSpot, and Pipedrive.</p>
-              </div>
+              {[
+                { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
+                { title: "SOC2 Type II", content: "Your data is encrypted and handled with enterprise-grade security protocols." },
+                { title: "Global Support", content: "Auto-translate sequences into 85+ languages with cultural nuance preservation." }
+              ].map((point, index) => (
+                <div 
+                  key={index} 
+                  className="relative pl-6 py-1 cursor-pointer group"
+                  onClick={() => setActiveDashboardPoint(index)}
+                >
+                  {/* Base Gray Line */}
+                  <div className="absolute left-0 top-0 w-[2px] h-full bg-gray-200" />
+                  
+                  {/* Animated Black Line */}
+                  {activeDashboardPoint === index && (
+                    <motion.div 
+                      layoutId="activeDashboardBar"
+                      className="absolute left-0 top-0 w-[2px] h-full bg-black z-10"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+
+                  <p className={`font-mono text-[11px] mb-2 uppercase transition-all duration-700 ${activeDashboardPoint === index ? 'text-black translate-x-1' : 'text-gray-400'}`}>
+                    {point.title}
+                  </p>
+                  <p className={`text-sm transition-all duration-700 leading-relaxed ${activeDashboardPoint === index ? 'text-gray-600 translate-x-1' : 'text-gray-400'}`}>
+                    {point.content}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
           <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
