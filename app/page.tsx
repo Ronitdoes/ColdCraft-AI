@@ -83,7 +83,7 @@ export default function LandingPage() {
 
       {/* TopNavBar */}
       <nav className="bg-white border-b border-gray-200 flex justify-between items-center w-full px-12 h-16 sticky top-0 z-50">
-        <Link href="/" className="text-xl font-bold font-serif text-black italic">
+        <Link href="/" className="text-3xl font-bold font-serif text-black italic">
           Coldcraft AI
         </Link>
         <div className="hidden md:flex items-center space-x-8">
