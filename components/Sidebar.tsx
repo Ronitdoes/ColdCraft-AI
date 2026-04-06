@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Upload, BarChart2, Package, Settings, PenTool, ArrowLeft } from 'lucide-react';
+import { LayoutDashboard, Upload, BarChart2, Package, Settings, FileText, ArrowLeft } from 'lucide-react';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -9,7 +9,7 @@ export function Sidebar() {
   const navItems = [
     { name: 'DASHBOARD', href: '/dashboard', icon: LayoutDashboard },
     { name: 'UPLOAD LEADS', href: '/dashboard/upload', icon: Upload },
-    { name: 'REVIEW & EDIT', href: '/dashboard/review', icon: PenTool },
+    { name: 'TEMPLATES', href: '/dashboard/templates', icon: FileText },
     { name: 'ANALYTICS', href: '/dashboard/analytics', icon: BarChart2 },
     { name: 'INVENTORY', href: '/dashboard/inventory', icon: Package },
     { name: 'SETTINGS', href: '/dashboard/settings', icon: Settings },
