@@ -5,29 +5,140 @@ import Image from 'next/image';
 import { Globe, Terminal, Check } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
-export default function LandingPage() {
-  const [isLoading, setIsLoading] = useState(true);
+function DashboardShowcase() {
   const [activeDashboardPoint, setActiveDashboardPoint] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const dashboardRef = useRef(null);
-  const isInView = useInView(dashboardRef, { amount: 0.1, margin: "-100px" });
+  const isInView = useInView(dashboardRef, { amount: 0 });
 
   useEffect(() => {
-    // Artificial delay for the preloader and image pre-fetching
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (isLoading || isPaused || !isInView) return;
+    if (isPaused || !isInView) return;
 
     const timer = setInterval(() => {
       setActiveDashboardPoint((prev) => (prev + 1) % 3);
     }, 3000);
     return () => clearInterval(timer);
-  }, [isPaused, isInView, isLoading]);
+  }, [isPaused, isInView]);
+
+  return (
+    <section id="dashboard" ref={dashboardRef} className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200 overflow-hidden transform-gpu">
+      <div className="col-span-12 lg:col-span-5 py-12">
+        <div className="h-[180px] mb-8 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+            <motion.h2 
+              key={activeDashboardPoint}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="font-serif italic text-6xl text-black leading-tight will-change-transform pb-4"
+            >
+              {activeDashboardPoint === 0 && <>The <br />Dashboard.</>}
+              {activeDashboardPoint === 1 && <>Review <br />Leads Patterns.</>}
+              {activeDashboardPoint === 2 && <>Library <br />Templates Engine.</>}
+            </motion.h2>
+          </AnimatePresence>
+        </div>
+        
+        <div className="space-y-8">
+          {[
+            { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
+            { title: "Deep vetting in seconds.", content: "Analyze entire lead lists for behavioral signals, company health, and sentiment before sending a single byte." },
+            { title: "Modular Architecture.", content: "Access a repository of high-converting, AI-optimized templates designed for every vertical." }
+          ].map((point, index) => (
+            <div 
+              key={index} 
+              className="relative pl-6 py-1 cursor-pointer group"
+              onClick={() => {
+                setActiveDashboardPoint(index);
+                setIsPaused(true);
+              }}
+            >
+              {/* Base Gray Line */}
+              <div className="absolute left-0 top-0 w-[2px] h-full bg-gray-200" />
+              
+              {/* Animated Black Line */}
+              {activeDashboardPoint === index && (
+                <motion.div 
+                  layoutId="activeDashboardBar"
+                  className="absolute left-0 top-0 w-[2px] h-full bg-black z-10 will-change-transform"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+
+              <p className={`font-mono text-[11px] mb-2 uppercase transition-all duration-700 ${activeDashboardPoint === index ? 'text-black translate-x-1' : 'text-gray-400'}`}>
+                {point.title}
+              </p>
+              <p className={`text-sm transition-all duration-700 leading-relaxed ${activeDashboardPoint === index ? 'text-gray-600 translate-x-1' : 'text-gray-400'}`}>
+                {point.content}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
+        <div className="w-full bg-[#f7f7f5] p-2 relative aspect-[16/10] overflow-hidden border border-black shadow-2xl">
+          <AnimatePresence>
+            <motion.div
+              key={activeDashboardPoint}
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 w-full h-full will-change-transform"
+            >
+              <Image 
+                src={activeDashboardPoint === 0 ? "/screen.webp" : activeDashboardPoint === 1 ? "/review.webp" : "/template.webp"} 
+                alt={activeDashboardPoint === 0 ? "Dashboard Interface" : activeDashboardPoint === 1 ? "Review Leads Interface" : "Templates Interface"} 
+                fill
+                className="object-cover object-top grayscale"
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function LandingPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('platform');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    let handleScrollInProgress = false;
+
+    const handleScroll = () => {
+      if (handleScrollInProgress) return;
+      handleScrollInProgress = true;
+
+      window.requestAnimationFrame(() => {
+        const dashboardSection = document.getElementById('dashboard');
+        const pricingSection = document.getElementById('pricing');
+        const scrollPosition = window.scrollY + 200;
+
+        if (pricingSection && scrollPosition >= pricingSection.offsetTop) {
+          setActiveTab('pricing');
+        } else if (dashboardSection && scrollPosition >= dashboardSection.offsetTop) {
+          setActiveTab('resources');
+        } else {
+          setActiveTab('platform');
+        }
+        handleScrollInProgress = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handlePricingClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -102,35 +213,6 @@ export default function LandingPage() {
     }
   ];
 
-  const [activeTab, setActiveTab] = useState('platform');
-
-  useEffect(() => {
-    let handleScrollInProgress = false;
-
-    const handleScroll = () => {
-      if (handleScrollInProgress) return;
-      handleScrollInProgress = true;
-
-      window.requestAnimationFrame(() => {
-        const dashboardSection = document.getElementById('dashboard');
-        const pricingSection = document.getElementById('pricing');
-        const scrollPosition = window.scrollY + 200;
-
-        if (pricingSection && scrollPosition >= pricingSection.offsetTop) {
-          setActiveTab('pricing');
-        } else if (dashboardSection && scrollPosition >= dashboardSection.offsetTop) {
-          setActiveTab('resources');
-        } else {
-          setActiveTab('platform');
-        }
-        handleScrollInProgress = false;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <AnimatePresence mode="wait">
       {isLoading ? (
@@ -154,7 +236,7 @@ export default function LandingPage() {
                 transition={{ delay: 1, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden whitespace-nowrap inline-flex"
               >
-                <span className="ml-1">OLDCRAFT</span>
+                <span className="ml-1 tracking-tighter pr-16 block">OLDCRAFT</span>
               </motion.div>
             </div>
             <motion.div 
@@ -277,85 +359,7 @@ export default function LandingPage() {
 
             <hr className="border-t border-gray-200" />
             
-            {/* Asymmetric Layout Section - Showcasing Dashboard */}
-            <section id="dashboard" ref={dashboardRef} className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200 overflow-hidden transform-gpu">
-              <div className="col-span-12 lg:col-span-5 py-12">
-                <div className="h-[140px] mb-8 overflow-hidden relative">
-                  <AnimatePresence mode="wait">
-                    <motion.h2 
-                      key={activeDashboardPoint}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                      className="font-serif italic text-6xl text-black leading-tight will-change-transform"
-                    >
-                      {activeDashboardPoint === 0 && <>The <br />Dashboard.</>}
-                      {activeDashboardPoint === 1 && <>Review <br />Leads.</>}
-                      {activeDashboardPoint === 2 && <>Library <br />Templates.</>}
-                    </motion.h2>
-                  </AnimatePresence>
-                </div>
-                
-                <div className="space-y-8">
-                  {[
-                    { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
-                    { title: "Deep vetting in seconds.", content: "Analyze entire lead lists for behavioral signals, company health, and sentiment before sending a single byte." },
-                    { title: "Modular Architecture.", content: "Access a repository of high-converting, AI-optimized templates designed for every vertical." }
-                  ].map((point, index) => (
-                    <div 
-                      key={index} 
-                      className="relative pl-6 py-1 cursor-pointer group"
-                      onClick={() => {
-                        setActiveDashboardPoint(index);
-                        setIsPaused(true);
-                      }}
-                    >
-                      {/* Base Gray Line */}
-                      <div className="absolute left-0 top-0 w-[2px] h-full bg-gray-200" />
-                      
-                      {/* Animated Black Line */}
-                      {activeDashboardPoint === index && (
-                        <motion.div 
-                          layoutId="activeDashboardBar"
-                          className="absolute left-0 top-0 w-[2px] h-full bg-black z-10 will-change-transform"
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-                      )}
-
-                      <p className={`font-mono text-[11px] mb-2 uppercase transition-all duration-700 ${activeDashboardPoint === index ? 'text-black translate-x-1' : 'text-gray-400'}`}>
-                        {point.title}
-                      </p>
-                      <p className={`text-sm transition-all duration-700 leading-relaxed ${activeDashboardPoint === index ? 'text-gray-600 translate-x-1' : 'text-gray-400'}`}>
-                        {point.content}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
-                <div className="w-full bg-[#f7f7f5] p-2 relative aspect-[16/10] overflow-hidden border border-black shadow-2xl">
-                  <AnimatePresence>
-                    <motion.div
-                      key={activeDashboardPoint}
-                      initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 w-full h-full will-change-transform"
-                    >
-                      <Image 
-                        src={activeDashboardPoint === 0 ? "/screen.webp" : activeDashboardPoint === 1 ? "/review.webp" : "/template.webp"} 
-                        alt={activeDashboardPoint === 0 ? "Dashboard Interface" : activeDashboardPoint === 1 ? "Review Leads Interface" : "Templates Interface"} 
-                        fill
-                        className="object-cover object-top grayscale"
-                        priority
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            </section>
+            <DashboardShowcase />
 
             {/* Features Grid - Core Infrastructure */}
             <section className="py-24">
