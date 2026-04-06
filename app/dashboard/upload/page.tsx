@@ -6,7 +6,6 @@ export default function UploadLeads() {
     <div className="flex-grow flex flex-col">
       <section className="p-12 max-w-7xl mx-auto w-full">
         <div className="mb-16">
-          <span className="font-mono text-[11px] uppercase tracking-widest text-gray-400 mb-4 block">STEP 01 // CORE_MODULE</span>
           <h2 className="font-serif text-6xl italic">Define Your Foundation</h2>
           <div className="mt-6 flex items-center gap-4 text-gray-500">
             <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">PHASE_A</span>

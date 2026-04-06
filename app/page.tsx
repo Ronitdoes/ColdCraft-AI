@@ -228,7 +228,7 @@ export default function LandingPage() {
         {/* Asymmetric Layout Section */}
         <section className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200">
           <div className="col-span-12 lg:col-span-5 py-12">
-            <h2 className="font-serif text-5xl font-bold tracking-tight italic leading-tight mb-8">The Terminal <br />Dashboard.</h2>
+            <h2 className="font-serif text-5xl font-bold tracking-tight italic leading-tight mb-8">The <br />Dashboard.</h2>
             <div className="space-y-8">
               <div className="border-l-2 border-black pl-6">
                 <p className="font-mono text-[11px] text-black mb-2 uppercase">Verification Protocol</p>
@@ -245,32 +245,15 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
-            <div className="w-full bg-white border border-black aspect-video relative overflow-hidden flex flex-col">
-              <div className="h-10 border-b border-black flex items-center px-4 justify-between bg-white">
-                <div className="flex space-x-1.5">
-                  <div className="w-2.5 h-2.5 bg-black"></div>
-                  <div className="w-2.5 h-2.5 bg-black"></div>
-                  <div className="w-2.5 h-2.5 bg-black"></div>
-                </div>
-                <div className="font-mono text-[9px] tracking-widest text-black">TERMINAL_INSTANCE_01</div>
-              </div>
-              <div className="flex-1 p-6 font-mono text-[10px] text-gray-600 leading-relaxed bg-white">
-                <div className="text-black mb-2">&gt; INITIALIZING_COLDCRAFT_SEQ...</div>
-                <div className="mb-1">[OK] PROSPECT_LIST_LOADED (N=4281)</div>
-                <div className="mb-1">[OK] NEURAL_ENGINE_ONLINE</div>
-                <div className="mb-1">[OK] SENTIMENT_FILTERS_ACTIVE</div>
-                <div className="mb-4 text-black italic">&gt; RUNNING_SIMULATION_V4.2</div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="border border-gray-200 p-3">
-                    <div className="text-gray-400 mb-1">PROXIMITY_MATCH</div>
-                    <div className="text-xl text-black">0.94</div>
-                  </div>
-                  <div className="border border-gray-200 p-3">
-                    <div className="text-gray-400 mb-1">INTENT_SCORE</div>
-                    <div className="text-xl text-black">A+</div>
-                  </div>
-                </div>
-              </div>
+            <div className="w-full bg-[#f7f7f5] p-4">
+              <Image 
+                src="/screen.png" 
+                alt="Dashboard Interface" 
+                width={800} 
+                height={500} 
+                className="w-full h-auto grayscale border border-black shadow-lg"
+                referrerPolicy="no-referrer"
+              />
             </div>
           </div>
         </section>
