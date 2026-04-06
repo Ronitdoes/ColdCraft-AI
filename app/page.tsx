@@ -104,10 +104,7 @@ export default function LandingPage() {
           </a>
         </div>
         <div className="flex items-center space-x-6">
-          <div className="hidden lg:block relative">
-            <input className="font-mono text-[10px] border border-gray-200 px-3 py-1.5 focus:outline-none focus:border-black w-48" placeholder="SEARCH_DATABASE" type="text" />
-          </div>
-          <Link href="/dashboard" className="bg-black text-white px-6 py-2 font-mono text-[11px] uppercase tracking-widest hover:bg-gray-800 transition-all active:scale-[0.98]">
+          <Link href="/dashboard" className="bg-black text-white px-8 py-2.5 font-mono text-[11px] uppercase tracking-widest hover:bg-gray-800 transition-all active:scale-[0.98]">
             Start for free
           </Link>
         </div>
