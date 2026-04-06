@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Upload, BarChart2, Package, Settings, PenTool } from 'lucide-react';
+import { LayoutDashboard, Upload, BarChart2, Package, Settings, PenTool, ArrowLeft } from 'lucide-react';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -40,6 +40,16 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="px-4 py-6 border-t border-gray-100">
+        <Link 
+          href="/" 
+          className="flex items-center px-4 py-3 text-gray-500 hover:text-black transition-colors group"
+        >
+          <ArrowLeft className="mr-3 w-4 h-4 group-hover:-translate-x-1 transition-transform" strokeWidth={1.5} />
+          <span className="font-mono text-[10px] uppercase tracking-widest">Back to Website</span>
+        </Link>
+      </div>
     </aside>
   );
 }
