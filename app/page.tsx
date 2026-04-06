@@ -288,7 +288,6 @@ export default function LandingPage() {
             {plans.map((plan) => (
               <div key={plan.id} className={`p-12 border-r border-b border-gray-200 flex flex-col ${plan.variant === 'premium' ? 'bg-white' : 'bg-[#f7f7f5]'} group relative overflow-hidden transition-all hover:bg-white`}>
                 <div className="mb-12">
-                  <div className="font-mono text-[11px] text-gray-400 mb-2 tracking-tighter">{plan.id}</div>
                   <h2 className="font-serif text-3xl font-bold italic mb-4">{plan.name}</h2>
                   <div className="flex items-baseline gap-1">
                     {plan.price !== 'Custom' && <span className="text-sm font-mono text-gray-500">$</span>}
