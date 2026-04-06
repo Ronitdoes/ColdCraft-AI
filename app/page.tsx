@@ -108,7 +108,7 @@ export default function LandingPage() {
             <input className="font-mono text-[10px] border border-gray-200 px-3 py-1.5 focus:outline-none focus:border-black w-48" placeholder="SEARCH_DATABASE" type="text" />
           </div>
           <Link href="/dashboard" className="bg-black text-white px-6 py-2 font-mono text-[11px] uppercase tracking-widest hover:bg-gray-800 transition-all active:scale-[0.98]">
-            Get Started
+            Start for free
           </Link>
         </div>
       </nav>
@@ -122,14 +122,14 @@ export default function LandingPage() {
               Cold Outreach, <br />Perfected by AI.
             </h1>
             <p className="text-lg leading-[1.7] text-gray-600 max-w-xl mb-12">
-              A technical framework for modern sales organizations. We replace manual guesswork with algorithmic precision, ensuring every message lands with the weight of personalized intent.
+              Stop guessing :) Coldcraft uses deep intelligence to draft, sequence, and dispatch hyper-personalized outreach that actually gets replies.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/dashboard" className="bg-black text-white px-10 py-4 font-mono text-[11px] uppercase tracking-widest border border-black hover:bg-[#474747] transition-colors">
                 Launch Campaign
               </Link>
               <button className="bg-white text-black px-10 py-4 font-mono text-[11px] uppercase tracking-widest border border-black hover:bg-[#f7f7f5] transition-colors">
-                View Documentation
+                View Demo
               </button>
             </div>
           </div>
@@ -191,9 +191,9 @@ export default function LandingPage() {
                   <div className="w-2 h-2 bg-black rounded-full"></div>
                 </div>
               </div>
-              <h3 className="font-serif text-2xl mb-6">Neural Personalization</h3>
+              <h3 className="font-serif text-2xl mb-6">Prompt-to-sequence</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
-                Our LLMs analyze 40+ data points per contact to synthesize messages that are indistinguishable from human writing.
+                Describe your value proposition in natural language and watch Coldcraft architect a 6-step touchpoint strategy in seconds.
               </p>
               <div className="absolute bottom-0 left-0 w-full h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </div>
@@ -206,9 +206,9 @@ export default function LandingPage() {
                   <div className="w-1.5 h-4 bg-black"></div>
                 </div>
               </div>
-              <h3 className="font-serif text-2xl mb-6">Real-time Analytics</h3>
+              <h3 className="font-serif text-2xl mb-6">Personalization Scoring</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
-                Precision tracking of every open, click, and response with deep sentiment analysis of incoming signals.
+                Real-time verification of your emails. If it sounds like a template, our AI makes it for manual review to protect your reputation.
               </p>
               <div className="absolute bottom-0 left-0 w-full h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </div>
@@ -219,9 +219,9 @@ export default function LandingPage() {
                   <div className="w-4 h-4 border-2 border-black"></div>
                 </div>
               </div>
-              <h3 className="font-serif text-2xl mb-6">Dynamic Inventory</h3>
+              <h3 className="font-serif text-2xl mb-6">Automated Dispatch</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
-                Automatically refresh lead lists based on real-world triggers like job changes, funding, or product launches.
+                Smart scheduling that respects timezones and inbox warm-up protocols to ensure 99.9% deliverability rates.
               </p>
               <div className="absolute bottom-0 left-0 w-full h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </div>
