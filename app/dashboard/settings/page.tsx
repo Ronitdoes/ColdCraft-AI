@@ -2,9 +2,9 @@ import { User, Mail, Shield, Key, Bell, CreditCard, Monitor, CheckCircle2 } from
 
 export default function SettingsPage() {
   return (
-    <div className="p-8 max-w-5xl mx-auto w-full">
+    <div className="px-12 pb-24 pt-10 max-w-7xl mx-auto w-full">
       <div className="mb-12">
-        <h1 className="font-serif text-4xl font-bold tracking-tight italic mb-2">System Configuration</h1>
+        <h1 className="font-serif italic text-6xl text-black mb-2">System Configuration</h1>
         <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500">Manage account, billing, and API preferences</p>
       </div>
 

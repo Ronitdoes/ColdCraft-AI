@@ -126,7 +126,7 @@ export default function LandingPage() {
         <section className="py-24 grid grid-cols-12 gap-6">
           <div className="col-span-12 lg:col-span-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] mb-8 text-gray-500">AI-POWERED REVENUE GENERATION</p>
-            <h1 className="font-serif text-7xl font-bold tracking-[-0.03em] leading-[1.1] mb-10 italic">
+            <h1 className="font-serif italic text-6xl text-black leading-tight mb-10">
               Cold Outreach, <br />Perfected by AI.
             </h1>
             <p className="text-lg leading-[1.7] text-gray-600 max-w-xl mb-12">
@@ -188,7 +188,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500 mb-4">Core Infrastructure</p>
-              <h2 className="font-serif text-4xl font-bold tracking-tight italic">Engineered for Results.</h2>
+              <h2 className="font-serif italic text-6xl text-black leading-tight">Engineered for Results.</h2>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-t border-gray-200">
@@ -239,7 +239,7 @@ export default function LandingPage() {
         {/* Asymmetric Layout Section */}
         <section className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200">
           <div className="col-span-12 lg:col-span-5 py-12">
-            <h2 className="font-serif text-5xl font-bold tracking-tight italic leading-tight mb-8">The <br />Dashboard.</h2>
+            <h2 className="font-serif italic text-6xl text-black leading-tight mb-8">The <br />Dashboard.</h2>
             <div className="space-y-8">
               {[
                 { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
@@ -291,7 +291,7 @@ export default function LandingPage() {
         <section id="pricing" className="py-24 border-b border-gray-200">
           <div className="mb-16">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] mb-4 text-gray-500 text-center">DEPLOYMENT TIERS</p>
-            <h2 className="font-serif text-5xl font-bold tracking-tight italic text-center mb-8">Engineered for Scale.</h2>
+            <h2 className="font-serif italic text-6xl text-black leading-tight text-center mb-8">Engineered for Scale.</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border-l border-t border-gray-200">
             {plans.map((plan) => (

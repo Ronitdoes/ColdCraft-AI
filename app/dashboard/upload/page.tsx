@@ -4,9 +4,9 @@ import Image from 'next/image';
 export default function UploadLeads() {
   return (
     <div className="flex-grow flex flex-col">
-      <section className="p-12 max-w-7xl mx-auto w-full">
+      <section className="px-12 pb-24 pt-10 max-w-7xl mx-auto w-full">
         <div className="mb-16">
-          <h2 className="font-serif text-6xl italic">Define Your Foundation</h2>
+          <h2 className="font-serif italic text-6xl text-black">Define Your Foundation</h2>
           <div className="mt-6 flex items-center gap-4 text-gray-500">
             <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">PHASE_A</span>
             <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">STRUCTURAL_INPUT</span>

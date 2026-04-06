@@ -2,10 +2,10 @@ import { Database, Search, Filter, MoreHorizontal, Download, Plus } from 'lucide
 
 export default function InventoryPage() {
   return (
-    <div className="p-8 max-w-7xl mx-auto w-full">
+    <div className="px-12 pb-24 pt-10 max-w-7xl mx-auto w-full">
       <div className="flex justify-between items-end mb-12">
         <div>
-          <h1 className="font-serif text-4xl font-bold tracking-tight italic mb-2">Lead Inventory</h1>
+          <h1 className="font-serif italic text-6xl text-black mb-2">Lead Inventory</h1>
           <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500">Master database of all processed prospects</p>
         </div>
         <div className="flex space-x-4">

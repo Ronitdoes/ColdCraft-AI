@@ -50,40 +50,11 @@ const templates = [
 export default function TemplatesPage() {
   return (
     <div className="flex-grow flex flex-col bg-white overflow-y-auto">
-      {/* Data Ribbon */}
-      <div className="h-6 bg-[#F7F7F5] border-b border-gray-100 flex items-center px-12 font-mono text-[10px] tracking-widest text-gray-400">
-        <span className="mr-6">SYSTEM_READY</span>
-        <span className="mr-6">TS_2024.11.08_14:22:01</span>
-        <span className="mr-6">LATENCY_14MS</span>
-        <span className="ml-auto">COLDCRAFT AI // INTERNAL ACCESS ONLY</span>
-      </div>
-
-      {/* Top Header Navigation */}
-      <header className="h-16 flex justify-between items-center px-12 border-b border-gray-200 bg-white sticky top-0 z-30">
-        <div className="flex items-center gap-10">
-          <a href="#" className="font-mono text-[11px] uppercase tracking-widest text-black border-b-2 border-black pb-1">Platform</a>
-          <a href="#" className="font-mono text-[11px] uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Resources</a>
-          <a href="#" className="font-mono text-[11px] uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Pricing</a>
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="relative group hidden lg:block">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input 
-              type="text" 
-              placeholder="SEARCH TEMPLATES" 
-              className="bg-[#F9F9F7] border border-gray-200 text-[10px] font-mono focus:ring-0 w-64 focus:border-black transition-all pl-10 h-10 placeholder:text-gray-400 outline-none" 
-            />
-          </div>
-          <button className="font-mono text-[11px] uppercase tracking-widest bg-black text-white px-6 py-2 hover:opacity-80 transition-opacity">Get Started</button>
-        </div>
-      </header>
-
-      <div className="p-12 max-w-7xl mx-auto w-full">
+      <div className="px-12 pb-24 pt-10 max-w-7xl mx-auto w-full">
         {/* Editorial Header Section */}
         <div className="grid grid-cols-12 gap-8 mb-20 items-end">
           <div className="col-span-12 lg:col-span-8">
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-4 block">Archive / Library / 001</span>
-            <h2 className="text-7xl font-serif font-bold italic leading-tight -tracking-[0.03em] mb-6">Template Library</h2>
+            <h2 className="font-serif italic text-6xl text-black leading-tight mb-6">Template Library</h2>
             <p className="text-xl text-gray-600 max-w-2xl leading-relaxed">
               A curated collection of precision-engineered messaging structures. Each template is rigorously tested against real-world conversion metrics.
             </p>
