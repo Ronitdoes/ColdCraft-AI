@@ -182,11 +182,6 @@ export default function LandingPage() {
               <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500 mb-4">Core Infrastructure</p>
               <h2 className="font-serif text-4xl font-bold tracking-tight italic">Engineered for Results.</h2>
             </div>
-            <div className="max-w-xs md:text-right">
-              <p className="text-[13px] text-gray-500 font-mono leading-relaxed uppercase">
-                Protocol established to eliminate the friction of manual prospect research and verification.
-              </p>
-            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-t border-gray-200">
             {/* Card 1 */}
@@ -196,7 +191,6 @@ export default function LandingPage() {
                   <div className="w-2 h-2 bg-black rounded-full"></div>
                 </div>
               </div>
-              <div className="font-mono text-[11px] text-gray-400 mb-4 tracking-tighter">MODULE_01</div>
               <h3 className="font-serif text-2xl mb-6">Neural Personalization</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
                 Our LLMs analyze 40+ data points per contact to synthesize messages that are indistinguishable from human writing.
@@ -212,7 +206,6 @@ export default function LandingPage() {
                   <div className="w-1.5 h-4 bg-black"></div>
                 </div>
               </div>
-              <div className="font-mono text-[11px] text-gray-400 mb-4 tracking-tighter">MODULE_02</div>
               <h3 className="font-serif text-2xl mb-6">Real-time Analytics</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
                 Precision tracking of every open, click, and response with deep sentiment analysis of incoming signals.
@@ -226,7 +219,6 @@ export default function LandingPage() {
                   <div className="w-4 h-4 border-2 border-black"></div>
                 </div>
               </div>
-              <div className="font-mono text-[11px] text-gray-400 mb-4 tracking-tighter">MODULE_03</div>
               <h3 className="font-serif text-2xl mb-6">Dynamic Inventory</h3>
               <p className="text-gray-600 leading-[1.7] mb-8">
                 Automatically refresh lead lists based on real-world triggers like job changes, funding, or product launches.
@@ -346,15 +338,10 @@ export default function LandingPage() {
       <footer className="bg-white border-t border-gray-200">
         <div className="max-w-[1440px] mx-auto px-12 py-12 flex flex-col md:flex-row justify-between items-start md:items-center space-y-8 md:space-y-0">
           <div className="space-y-4">
-            <div className="text-lg font-bold font-serif text-black italic">Coldcraft AI</div>
+            <div className="text-2xl font-bold font-serif text-black italic">Coldcraft AI</div>
             <div className="font-mono text-[10px] tracking-tighter text-gray-600">
-              © 2024 COLDCRAFT AI. ALL RIGHTS RESERVED.
+              © 2026 COLDCRAFT AI. ALL RIGHTS RESERVED.
             </div>
-          </div>
-          <div className="flex flex-wrap gap-x-12 gap-y-4">
-            <a href="#" className="font-mono text-[10px] tracking-tighter text-gray-600 hover:text-black hover:underline font-bold">TERMINAL</a>
-            <a href="#" className="font-mono text-[10px] tracking-tighter text-gray-600 hover:text-black hover:underline">SYSTEM_LOGS</a>
-            <a href="#" className="font-mono text-[10px] tracking-tighter text-gray-600 hover:text-black hover:underline">LEGAL</a>
           </div>
           <div className="flex items-center space-x-6">
             <div className="h-10 w-10 border border-black flex items-center justify-center grayscale opacity-60 hover:opacity-100 cursor-pointer">
@@ -363,19 +350,6 @@ export default function LandingPage() {
             <div className="h-10 w-10 border border-black flex items-center justify-center grayscale opacity-60 hover:opacity-100 cursor-pointer">
               <Terminal className="w-4 h-4" />
             </div>
-          </div>
-        </div>
-        {/* Bottom Safety Ribbon */}
-        <div className="bg-black py-2 px-12 overflow-hidden whitespace-nowrap">
-          <div className="font-mono text-[8px] text-white/40 flex space-x-12 uppercase tracking-widest animate-pulse">
-            <span>ENCRYPTED_CONNECTION_SECURE</span>
-            <span>DATA_RESIDENCY: EU_WEST_1</span>
-            <span>NEURAL_OUTPUT_VERIFIED</span>
-            <span>ENCRYPTED_CONNECTION_SECURE</span>
-            <span>DATA_RESIDENCY: EU_WEST_1</span>
-            <span>NEURAL_OUTPUT_VERIFIED</span>
-            <span>ENCRYPTED_CONNECTION_SECURE</span>
-            <span>DATA_RESIDENCY: EU_WEST_1</span>
           </div>
         </div>
       </footer>

@@ -18,8 +18,7 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col pt-8 z-40">
       <div className="px-8 mb-12">
-        <h1 className="text-lg font-bold font-mono tracking-widest text-black">COLDCRAFT</h1>
-        <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500 mt-1">V1.0.4-STABLE</p>
+        <h1 className="text-2xl font-bold font-serif italic tracking-tight text-black">COLDCRAFT</h1>
       </div>
       <nav className="flex-grow px-4 space-y-1">
         {navItems.map((item) => {
