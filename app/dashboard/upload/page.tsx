@@ -7,11 +7,6 @@ export default function UploadLeads() {
       <section className="px-12 pb-24 pt-10 max-w-7xl mx-auto w-full">
         <div className="mb-16">
           <h2 className="font-serif italic text-6xl text-black">Define Your Foundation</h2>
-          <div className="mt-6 flex items-center gap-4 text-gray-500">
-            <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">PHASE_A</span>
-            <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">STRUCTURAL_INPUT</span>
-            <span className="font-mono text-[10px] uppercase tracking-widest border border-gray-200 px-3 py-1">CONTEXT_MAPPING</span>
-          </div>
         </div>
 
         <div className="grid grid-cols-12 gap-12">

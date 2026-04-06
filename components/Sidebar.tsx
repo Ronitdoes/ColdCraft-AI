@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Upload, BarChart2, Package, Settings, FileText, ArrowLeft } from 'lucide-react';
 
+import { motion } from 'framer-motion';
+
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -20,7 +22,7 @@ export function Sidebar() {
       <div className="px-8 mb-12">
         <h1 className="text-2xl font-bold font-serif italic tracking-tight text-black">COLDCRAFT</h1>
       </div>
-      <nav className="flex-grow px-4 space-y-1">
+      <nav className="flex-grow px-4 space-y-1 relative">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
@@ -28,14 +30,24 @@ export function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center px-4 py-3 transition-colors group ${
-                isActive 
-                  ? 'bg-black text-white scale-[0.99] duration-75' 
-                  : 'text-gray-500 hover:bg-gray-100'
+              className={`flex items-center px-4 py-3 transition-colors group relative ${
+                isActive ? 'text-white' : 'text-gray-500 hover:bg-gray-100'
               }`}
             >
-              <Icon className={`mr-3 w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} strokeWidth={1.5} />
-              <span className="font-mono text-[11px] uppercase tracking-widest">{item.name}</span>
+              {isActive && (
+                <motion.div
+                  layoutId="sidebar-active"
+                  className="absolute inset-0 bg-black z-0"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    damping: 30,
+                    mass: 0.8
+                  }}
+                />
+              )}
+              <Icon className={`relative z-10 mr-3 w-5 h-5 transition-colors ${isActive ? 'text-white' : 'text-gray-500'}`} strokeWidth={1.5} />
+              <span className="relative z-10 font-mono text-[11px] uppercase tracking-widest">{item.name}</span>
             </Link>
           );
         })}
