@@ -287,22 +287,21 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
-            <div className="w-full bg-[#f7f7f5] p-4 relative min-h-[400px]">
-              <AnimatePresence mode="wait">
+            <div className="w-full bg-[#f7f7f5] p-2 relative aspect-[16/10] overflow-hidden border border-black shadow-2xl">
+              <AnimatePresence>
                 <motion.div
                   key={activeDashboardPoint}
                   initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full h-auto will-change-transform"
+                  className="absolute inset-0 w-full h-full will-change-transform"
                 >
                   <Image 
-                    src={activeDashboardPoint === 0 ? "/screen.png" : activeDashboardPoint === 1 ? "/review.png" : "/template.png"} 
+                    src={activeDashboardPoint === 0 ? "/screen.webp" : activeDashboardPoint === 1 ? "/review.webp" : "/template.webp"} 
                     alt={activeDashboardPoint === 0 ? "Dashboard Interface" : activeDashboardPoint === 1 ? "Review Leads Interface" : "Templates Interface"} 
-                    width={800} 
-                    height={500} 
-                    className="w-full h-auto grayscale border border-black shadow-2xl"
+                    fill
+                    className="object-cover object-top grayscale"
                     priority
                   />
                 </motion.div>
