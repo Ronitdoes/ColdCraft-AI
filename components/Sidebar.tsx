@@ -1,0 +1,46 @@
+"use client";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboard, Upload, BarChart2, Package, Settings, PenTool } from 'lucide-react';
+
+export function Sidebar() {
+  const pathname = usePathname();
+
+  const navItems = [
+    { name: 'DASHBOARD', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'UPLOAD LEADS', href: '/dashboard/upload', icon: Upload },
+    { name: 'REVIEW & EDIT', href: '/dashboard/review', icon: PenTool },
+    { name: 'ANALYTICS', href: '/dashboard/analytics', icon: BarChart2 },
+    { name: 'INVENTORY', href: '/dashboard/inventory', icon: Package },
+    { name: 'SETTINGS', href: '/dashboard/settings', icon: Settings },
+  ];
+
+  return (
+    <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col pt-8 z-40">
+      <div className="px-8 mb-12">
+        <h1 className="text-lg font-bold font-mono tracking-widest text-black">COLDCRAFT</h1>
+        <p className="font-mono text-[11px] uppercase tracking-widest text-gray-500 mt-1">V1.0.4-STABLE</p>
+      </div>
+      <nav className="flex-grow px-4 space-y-1">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`flex items-center px-4 py-3 transition-colors group ${
+                isActive 
+                  ? 'bg-black text-white scale-[0.99] duration-75' 
+                  : 'text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              <Icon className={`mr-3 w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} strokeWidth={1.5} />
+              <span className="font-mono text-[11px] uppercase tracking-widest">{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
+    </aside>
+  );
+}

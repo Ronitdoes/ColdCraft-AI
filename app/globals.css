@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #0A0A0A;
+}
+
+@media (hover: hover) {
+  * {
+    cursor: none !important;
+  }
+}
