@@ -1,19 +1,24 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Globe, Terminal, Check } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 
 export default function LandingPage() {
   const [activeDashboardPoint, setActiveDashboardPoint] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const dashboardRef = useRef(null);
+  const isInView = useInView(dashboardRef, { amount: 0.3 });
 
   useEffect(() => {
+    if (isPaused || !isInView) return;
+
     const timer = setInterval(() => {
       setActiveDashboardPoint((prev) => (prev + 1) % 3);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isPaused, isInView]);
 
   const handlePricingClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -88,6 +93,35 @@ export default function LandingPage() {
     }
   ];
 
+  const [activeTab, setActiveTab] = useState('platform');
+
+  useEffect(() => {
+    let handleScrollInProgress = false;
+
+    const handleScroll = () => {
+      if (handleScrollInProgress) return;
+      handleScrollInProgress = true;
+
+      window.requestAnimationFrame(() => {
+        const dashboardSection = document.getElementById('dashboard');
+        const pricingSection = document.getElementById('pricing');
+        const scrollPosition = window.scrollY + 200;
+
+        if (pricingSection && scrollPosition >= pricingSection.offsetTop) {
+          setActiveTab('pricing');
+        } else if (dashboardSection && scrollPosition >= dashboardSection.offsetTop) {
+          setActiveTab('resources');
+        } else {
+          setActiveTab('platform');
+        }
+        handleScrollInProgress = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
 
@@ -97,22 +131,35 @@ export default function LandingPage() {
         <Link href="/" className="text-3xl font-bold font-serif text-black italic">
           Coldcraft AI
         </Link>
-        <div className="hidden md:flex items-center space-x-8">
-          <a 
-            href="#" 
-            onClick={handlePlatformClick}
-            className="font-mono text-[11px] uppercase tracking-widest text-black border-b-2 border-black pb-1"
-          >
-            Platform
-          </a>
-          <Link href="#" className="font-mono text-[11px] uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Resources</Link>
-          <a 
-            href="#pricing" 
-            onClick={handlePricingClick}
-            className="font-mono text-[11px] uppercase tracking-widest text-gray-500 hover:text-black transition-colors"
-          >
-            Pricing
-          </a>
+        <div className="hidden md:flex items-center space-x-12 relative">
+          {[
+            { id: 'platform', label: 'Platform', onClick: handlePlatformClick },
+            { id: 'resources', label: 'Resources', onClick: (e: any) => {
+              e.preventDefault();
+              const lenis = (window as any).lenis;
+              if (lenis) lenis.scrollTo('#dashboard', { duration: 2 });
+              else document.querySelector('#dashboard')?.scrollIntoView({ behavior: 'smooth' });
+            }},
+            { id: 'pricing', label: 'Pricing', onClick: handlePricingClick },
+          ].map((item) => (
+            <a 
+              key={item.id}
+              href={`#${item.id}`} 
+              onClick={item.onClick}
+              className={`font-mono text-[11px] uppercase tracking-widest transition-colors relative pb-1 ${
+                activeTab === item.id ? 'text-black' : 'text-gray-400 hover:text-black'
+              }`}
+            >
+              {item.label}
+              {activeTab === item.id && (
+                <motion.div
+                  layoutId="nav-underline"
+                  className="absolute left-0 bottom-0 w-full h-[2px] bg-black will-change-transform"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </a>
+          ))}
         </div>
         <div className="flex items-center space-x-6">
           <Link href="/dashboard" className="bg-black text-white px-8 py-2.5 font-mono text-[11px] uppercase tracking-widest hover:bg-gray-800 transition-all active:scale-[0.98]">
@@ -123,7 +170,7 @@ export default function LandingPage() {
 
       <main className="max-w-[1440px] mx-auto px-12 w-full">
         {/* Hero Section */}
-        <section className="py-24 grid grid-cols-12 gap-6">
+        <section className="py-24 grid grid-cols-12 gap-6 overflow-hidden">
           <div className="col-span-12 lg:col-span-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] mb-8 text-gray-500">AI-POWERED REVENUE GENERATION</p>
             <h1 className="font-serif italic text-6xl text-black leading-tight mb-10">
@@ -142,14 +189,14 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-4 mt-12 lg:mt-0 flex items-center justify-end">
-            <div className="w-full aspect-[4/5] border border-black p-2">
+            <div className="w-full aspect-[4/5] border border-black p-2 bg-white">
               <Image 
                 src="https://picsum.photos/seed/tech/800/1000?grayscale" 
                 alt="Technical Precision" 
                 width={800} 
                 height={1000} 
                 className="w-full h-full object-cover grayscale"
-                referrerPolicy="no-referrer"
+                priority
               />
             </div>
           </div>
@@ -158,7 +205,7 @@ export default function LandingPage() {
         <hr className="border-t border-gray-200" />
 
         {/* Metrics Data Ribbon */}
-        <div className="py-12 grid grid-cols-12 gap-6">
+        <div className="py-12 grid grid-cols-12 gap-6 relative overflow-hidden">
           <div className="col-span-6 md:col-span-3">
             <div className="font-mono text-[10px] text-gray-500 mb-1">DATA_POINT_01</div>
             <div className="text-4xl font-serif tracking-tighter italic">98.4%</div>
@@ -183,7 +230,88 @@ export default function LandingPage() {
 
         <hr className="border-t border-gray-200" />
         
-        {/* Features Grid */}
+        {/* Asymmetric Layout Section - Showcasing Dashboard */}
+        <section id="dashboard" ref={dashboardRef} className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200 overflow-hidden transform-gpu">
+          <div className="col-span-12 lg:col-span-5 py-12">
+            <div className="h-[140px] mb-8 overflow-hidden relative">
+              <AnimatePresence mode="wait">
+                <motion.h2 
+                  key={activeDashboardPoint}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="font-serif italic text-6xl text-black leading-tight will-change-transform"
+                >
+                  {activeDashboardPoint === 0 && <>The <br />Dashboard.</>}
+                  {activeDashboardPoint === 1 && <>Review <br />Leads.</>}
+                  {activeDashboardPoint === 2 && <>Library <br />Templates.</>}
+                </motion.h2>
+              </AnimatePresence>
+            </div>
+            
+            <div className="space-y-8">
+              {[
+                { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
+                { title: "Deep vetting in seconds.", content: "Analyze entire lead lists for behavioral signals, company health, and sentiment before sending a single byte." },
+                { title: "Modular Architecture.", content: "Access a repository of high-converting, AI-optimized templates designed for every vertical." }
+              ].map((point, index) => (
+                <div 
+                  key={index} 
+                  className="relative pl-6 py-1 cursor-pointer group"
+                  onClick={() => {
+                    setActiveDashboardPoint(index);
+                    setIsPaused(true);
+                  }}
+                >
+                  {/* Base Gray Line */}
+                  <div className="absolute left-0 top-0 w-[2px] h-full bg-gray-200" />
+                  
+                  {/* Animated Black Line */}
+                  {activeDashboardPoint === index && (
+                    <motion.div 
+                      layoutId="activeDashboardBar"
+                      className="absolute left-0 top-0 w-[2px] h-full bg-black z-10 will-change-transform"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+
+                  <p className={`font-mono text-[11px] mb-2 uppercase transition-all duration-700 ${activeDashboardPoint === index ? 'text-black translate-x-1' : 'text-gray-400'}`}>
+                    {point.title}
+                  </p>
+                  <p className={`text-sm transition-all duration-700 leading-relaxed ${activeDashboardPoint === index ? 'text-gray-600 translate-x-1' : 'text-gray-400'}`}>
+                    {point.content}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
+            <div className="w-full bg-[#f7f7f5] p-4 relative min-h-[400px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeDashboardPoint}
+                  initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full h-auto will-change-transform"
+                >
+                  <Image 
+                    src={activeDashboardPoint === 0 ? "/screen.png" : activeDashboardPoint === 1 ? "/review.png" : "/template.png"} 
+                    alt={activeDashboardPoint === 0 ? "Dashboard Interface" : activeDashboardPoint === 1 ? "Review Leads Interface" : "Templates Interface"} 
+                    width={800} 
+                    height={500} 
+                    className="w-full h-auto grayscale border border-black shadow-2xl"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Grid - Core Infrastructure */}
         <section className="py-24">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
             <div>
@@ -232,57 +360,6 @@ export default function LandingPage() {
                 Smart scheduling that respects timezones and inbox warm-up protocols to ensure 99.9% deliverability rates.
               </p>
               <div className="absolute bottom-0 left-0 w-full h-1 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </div>
-          </div>
-        </section>
-
-        {/* Asymmetric Layout Section */}
-        <section className="py-24 bg-[#f7f7f5] -mx-12 px-12 grid grid-cols-12 gap-6 border-y border-gray-200">
-          <div className="col-span-12 lg:col-span-5 py-12">
-            <h2 className="font-serif italic text-6xl text-black leading-tight mb-8">The <br />Dashboard.</h2>
-            <div className="space-y-8">
-              {[
-                { title: "The engine that never sleeps.", content: "Coldcraft processes millions of data points to understand exactly what triggers a positive response in your industry." },
-                { title: "SOC2 Type II", content: "Your data is encrypted and handled with enterprise-grade security protocols." },
-                { title: "Global Support", content: "Auto-translate sequences into 85+ languages with cultural nuance preservation." }
-              ].map((point, index) => (
-                <div 
-                  key={index} 
-                  className="relative pl-6 py-1 cursor-pointer group"
-                  onClick={() => setActiveDashboardPoint(index)}
-                >
-                  {/* Base Gray Line */}
-                  <div className="absolute left-0 top-0 w-[2px] h-full bg-gray-200" />
-                  
-                  {/* Animated Black Line */}
-                  {activeDashboardPoint === index && (
-                    <motion.div 
-                      layoutId="activeDashboardBar"
-                      className="absolute left-0 top-0 w-[2px] h-full bg-black z-10"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-
-                  <p className={`font-mono text-[11px] mb-2 uppercase transition-all duration-700 ${activeDashboardPoint === index ? 'text-black translate-x-1' : 'text-gray-400'}`}>
-                    {point.title}
-                  </p>
-                  <p className={`text-sm transition-all duration-700 leading-relaxed ${activeDashboardPoint === index ? 'text-gray-600 translate-x-1' : 'text-gray-400'}`}>
-                    {point.content}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="col-span-12 lg:col-span-7 flex items-center justify-center p-8">
-            <div className="w-full bg-[#f7f7f5] p-4">
-              <Image 
-                src="/screen.png" 
-                alt="Dashboard Interface" 
-                width={800} 
-                height={500} 
-                className="w-full h-auto grayscale border border-black shadow-lg"
-                referrerPolicy="no-referrer"
-              />
             </div>
           </div>
         </section>
