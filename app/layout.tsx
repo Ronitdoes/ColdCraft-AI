@@ -11,7 +11,7 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif'
 const ibmPlexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
-  title: 'Coldcraft AI',
+  title: 'Coldcraft',
   description: 'Cold Outreach, Perfected by AI.',
 };
 
